@@ -5,18 +5,18 @@ import {
   StepLabel,
   Stepper,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import MyCourseConfirm from "../components/MyCourseConfirm";
 import MyCourseDateForm from "../components/MyCourseDateForm";
 import MyCourseForm from "../components/MyCourseForm";
 import { useAppDispatch } from "../hooks";
-import { Course } from "../model/Course";
-import { createCourse } from "../redux/CoursesReducer";
+import { CourseRegisteration } from "../model/CourseRegisteration";
+import { registerCourse } from "../redux/CoursesThunk";
 
 interface CourseEditorProps {
   create: boolean;
-  course?: Course;
+  course?: CourseRegisteration;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -36,12 +36,9 @@ const CourseEditor = ({ create, course }: CourseEditorProps) => {
   const [step, setstep] = useState(0);
   const [name, setname] = useState(create ? "" : course!.name);
   const [date, setdate] = useState(create ? "" : course!.date);
-  const [address, setaddress] = useState(create ? "" : course!.address);
+  const [cost, setcost] = useState(create ? 0 : course!.cost);
   const [repeatable, setrepeatable] = useState(
     create ? false : course!.repeatable
-  );
-  const [description, setdescription] = useState(
-    create ? "" : course!.description
   );
 
   const dispatch = useAppDispatch();
@@ -54,7 +51,16 @@ const CourseEditor = ({ create, course }: CourseEditorProps) => {
     if (step < 2) {
       setstep(step + 1);
     } else {
-      dispatch(createCourse(name, "", date, repeatable, address));
+      dispatch(
+        registerCourse({
+          userId: "this is react user",
+          courseId: "this is react course",
+          name,
+          date,
+          cost,
+          repeatable,
+        })
+      );
       history.push("/");
     }
   };
@@ -65,9 +71,9 @@ const CourseEditor = ({ create, course }: CourseEditorProps) => {
         return (
           <MyCourseForm
             courseName={name}
-            address={address}
+            cost={cost}
             setName={setname}
-            setAddress={setaddress}
+            setCost={setcost}
           />
         );
       case 1:
@@ -83,7 +89,7 @@ const CourseEditor = ({ create, course }: CourseEditorProps) => {
         return (
           <MyCourseConfirm
             courseName={name}
-            address={address}
+            cost={cost}
             date={date}
             repeatable={repeatable}
           />

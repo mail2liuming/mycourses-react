@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core";
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
-import { Course } from "./model/Course";
 import CourseEditor from "./pages/CourseEditor";
 import HomePage from "./pages/HomePage";
 

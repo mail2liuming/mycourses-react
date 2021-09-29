@@ -3,14 +3,14 @@ import React from "react";
 
 interface MyCourseConfirmProps {
   courseName: string;
-  address: string;
+  cost: number;
   date: string;
   repeatable: boolean;
 }
 
 const MyCourseConfirm = ({
   courseName,
-  address,
+  cost,
   date,
   repeatable,
 }: MyCourseConfirmProps) => {
@@ -20,7 +20,7 @@ const MyCourseConfirm = ({
         <Grid item xs={12} sm={6}>
           <Typography gutterBottom>
             Name: {courseName}
-            Address: {address}
+            Cost: {cost}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>

@@ -1,34 +1,37 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Course } from "../model/Course";
-import { v4 as uuid } from "uuid";
+import { CourseRegisteration } from "../model/CourseRegisteration";
+import { registerCourse } from "./CoursesThunk";
 
-const initialState = [] as Course[];
+const initialState = [] as CourseRegisteration[];
 
 const coursesReducer = createSlice({
     name: "courses",
     initialState,
     reducers: {
         createCourse: {
-            reducer: (state, action: PayloadAction<Course>) => { state.push(action.payload) },
-            prepare: (name: string, description: string, date: string, repeatable: boolean, address: string) => ({
+            reducer: (state, action: PayloadAction<CourseRegisteration>) => { state.push(action.payload) },
+            prepare: (name: string, description: string, date: string, repeatable: boolean, cost: number) => ({
                 payload: {
-                    id: uuid(),
+                    userId: "this is react user",
+                    courseId: "this is react course",
                     name,
-                    description,
                     date,
                     repeatable,
-                    address
+                    cost
                 }
             })
         },
         deleteCource(state, action: PayloadAction<string>) {
-            const index = state.findIndex((course) => course.id === action.payload);
+            const index = state.findIndex((course) => course.userId === action.payload);
             state.splice(index, 1);
         },
-        updateCource(state, action: PayloadAction<Course>) {
-            const index = state.findIndex((course) => course.id === action.payload.id);
+        updateCource(state, action: PayloadAction<CourseRegisteration>) {
+            const index = state.findIndex((course) => course.userId === action.payload.userId);
             state[index] = action.payload;
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(registerCourse.fulfilled, (state, { payload }) => { state.push(payload) })
     }
 }
 );

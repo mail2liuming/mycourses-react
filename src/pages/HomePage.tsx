@@ -16,7 +16,7 @@ const HomePage = () => {
   return (
     <div className={classes.page}>
       {courses.map((course) => (
-        <CourseCard key={course.id} {...course} />
+        <CourseCard key={course.courseId} {...course} />
       ))}
     </div>
   );

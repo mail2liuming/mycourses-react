@@ -1,8 +1,7 @@
 import { Card, CardContent, Typography } from "@material-ui/core";
-import React from "react";
-import { Course } from "../model/Course";
+import { CourseRegisteration } from "../model/CourseRegisteration";
 
-const CourseCard = ({ id, name, date }: Course) => {
+const CourseCard = ({ name, date }: CourseRegisteration) => {
   return (
     <Card>
       <CardContent>
