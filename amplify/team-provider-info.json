@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mycourses-dev-125701-authRole",
+      "UnauthRoleArn": "arn:aws:iam::773988152227:role/amplify-mycourses-dev-125701-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::773988152227:role/amplify-mycourses-dev-125701-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-mycourses-dev-125701-deployment",
+      "UnauthRoleName": "amplify-mycourses-dev-125701-unauthRole",
+      "StackName": "amplify-mycourses-dev-125701",
+      "StackId": "arn:aws:cloudformation:us-east-1:773988152227:stack/amplify-mycourses-dev-125701/9d05f5a0-24a5-11ec-b46f-0adb3c7f2f15",
+      "AmplifyAppId": "d1o4jimwc8zf6j"
+    },
+    "categories": {
+      "auth": {
+        "mycoursese79c99ede79c99ed": {}
+      }
+    }
+  }
+}

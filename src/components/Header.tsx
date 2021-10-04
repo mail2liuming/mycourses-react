@@ -9,6 +9,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AddIcon from "@material-ui/icons/Add";
 import React from "react";
 import { Link } from "react-router-dom";
+import { AmplifySignOut } from "@aws-amplify/ui-react";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -47,6 +48,7 @@ const Header = () => {
         <IconButton component={Link} to="/course-editor">
           <AddIcon />
         </IconButton>
+        <AmplifySignOut />
       </Toolbar>
     </AppBar>
   );

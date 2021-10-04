@@ -1,9 +1,14 @@
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import { makeStyles } from "@material-ui/core";
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import CourseEditor from "./pages/CourseEditor";
 import HomePage from "./pages/HomePage";
+
+import Amplify from "aws-amplify";
+import awsconfig from "./aws-exports";
+Amplify.configure(awsconfig);
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -32,4 +37,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
