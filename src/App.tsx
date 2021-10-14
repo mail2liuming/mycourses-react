@@ -1,4 +1,8 @@
-import { AmplifyAuthenticator, AmplifySignUp } from "@aws-amplify/ui-react";
+import {
+  AmplifyAuthenticator,
+  AmplifySignIn,
+  AmplifySignUp,
+} from "@aws-amplify/ui-react";
 import { makeStyles } from "@material-ui/core";
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -17,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
   },
   appBarSpacer: theme.mixins.toolbar,
 }));
+
+const federated = {
+  googleClientId: "413sfdsf242134dsfsadf",
+};
 
 function App() {
   const classes = useStyles();
@@ -52,6 +60,7 @@ function App() {
         usernameAlias="email"
         formFields={[{ type: "email" }, { type: "password" }]}
       />
+      <AmplifySignIn slot="sign-in" federated={federated}></AmplifySignIn>
     </AmplifyAuthenticator>
   );
 }
