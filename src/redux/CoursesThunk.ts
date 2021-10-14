@@ -1,8 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CourseRegisteration } from "../model/CourseRegisteration";
+import Auth, { CognitoUser } from "@aws-amplify/auth";
 
 const getBaseUrl = () => {
-    return "https://emcuvtp8x9.execute-api.us-east-1.amazonaws.com/prod";
+    return "https://ojimd9yan7.execute-api.us-east-1.amazonaws.com/prod";
 }
 
 export const fetchCourseRegisteration = createAsyncThunk<CourseRegisteration[], string>("registeration/list", async (userid: string, thunkApi) => {
@@ -11,9 +12,15 @@ export const fetchCourseRegisteration = createAsyncThunk<CourseRegisteration[], 
 });
 
 export const registerCourse = createAsyncThunk<CourseRegisteration, CourseRegisteration>("registeration/create", async (registeration: CourseRegisteration, thunkApi) => {
+    const user: CognitoUser = await Auth.currentAuthenticatedUser()
+    const token = user.getSignInUserSession()?.getIdToken().getJwtToken()
     const req = new Request(`${getBaseUrl()}/registeration/create`, {
         method: "post",
-        headers: new Headers({ 'content-type': 'application/json' }),
+        headers: new Headers({
+            'content-type': 'application/json',
+            'Authorization': `${token}`,
+            'Access-Control-Allow-Origin': '*'
+        }),
         body: JSON.stringify(registeration)
     });
     const response = await fetch(req);
