@@ -1,29 +1,32 @@
 import {
   AmplifyAuthenticator,
+  AmplifyGoogleButton,
   AmplifySignIn,
   AmplifySignUp,
-} from "@aws-amplify/ui-react";
-import { makeStyles } from "@material-ui/core";
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Header from "./components/Header";
-import CourseEditor from "./pages/CourseEditor";
-import HomePage from "./pages/HomePage";
+} from '@aws-amplify/ui-react';
+import { makeStyles } from '@material-ui/core';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Header from './components/Header';
+import CourseEditor from './pages/CourseEditor';
+import HomePage from './pages/HomePage';
 
-import Amplify from "aws-amplify";
-import awsconfig from "./aws-exports";
-import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
+import Amplify, { Auth } from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 Amplify.configure(awsconfig);
 
 const useStyles = makeStyles((theme) => ({
   content: {
-    overflow: "auto",
+    overflow: 'auto',
   },
   appBarSpacer: theme.mixins.toolbar,
 }));
 
 const federated = {
-  googleClientId: "413sfdsf242134dsfsadf",
+  googleClientId:
+    '345987337101-0g8keh99vtuvmkvemivfcij7t4o9pjb7.apps.googleusercontent.com',
 };
 
 function App() {
@@ -58,9 +61,18 @@ function App() {
       <AmplifySignUp
         slot="sign-up"
         usernameAlias="email"
-        formFields={[{ type: "email" }, { type: "password" }]}
+        formFields={[{ type: 'email' }, { type: 'password' }]}
       />
-      <AmplifySignIn slot="sign-in" federated={federated}></AmplifySignIn>
+      <AmplifySignIn slot="sign-in" federated={federated}>
+        <AmplifyGoogleButton
+          slot="federated-buttons"
+          onClick={() =>
+            Auth.federatedSignIn({
+              provider: 'Google' as CognitoHostedUIIdentityProvider,
+            })
+          }
+        />
+      </AmplifySignIn>
     </AmplifyAuthenticator>
   );
 }
