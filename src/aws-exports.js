@@ -12,10 +12,11 @@ const awsmobile = {
             "phone",
             "email",
             "openid",
+            "aws.cognito.signin.user.admin",
             "profile"
         ],
-        "redirectSignIn": "http://localhost:3000",
-        "redirectSignOut": "http://localhost:3000",
+        "redirectSignIn": "http://localhost:3000/",
+        "redirectSignOut": "http://localhost:3000/",
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS",
