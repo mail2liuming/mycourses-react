@@ -1,6 +1,6 @@
-import { Grid, TextField, Typography } from "@material-ui/core";
-import React from "react";
-import { Dispatcher } from "../hooks";
+import { Grid, TextField, Typography } from '@mui/material';
+import React from 'react';
+import { Dispatcher } from '../hooks';
 
 interface MyCourseFormProps {
   courseName: string;

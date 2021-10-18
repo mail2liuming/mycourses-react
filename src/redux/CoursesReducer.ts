@@ -10,10 +10,10 @@ const coursesReducer = createSlice({
     reducers: {
         createCourse: {
             reducer: (state, action: PayloadAction<CourseRegisteration>) => { state.push(action.payload) },
-            prepare: (name: string, description: string, date: string, repeatable: boolean, cost: number) => ({
+            prepare: (userId: string, courseId: string, name: string, date: string, repeatable: boolean, cost: number) => ({
                 payload: {
-                    userId: "this is react user",
-                    courseId: "this is react course",
+                    userId,
+                    courseId,
                     name,
                     date,
                     repeatable,

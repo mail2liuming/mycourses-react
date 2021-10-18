@@ -1,5 +1,5 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
-import { CourseRegisteration } from "../model/CourseRegisteration";
+import { Card, CardContent, Typography } from '@mui/material';
+import { CourseRegisteration } from '../model/CourseRegisteration';
 
 const CourseCard = ({ name, date }: CourseRegisteration) => {
   return (

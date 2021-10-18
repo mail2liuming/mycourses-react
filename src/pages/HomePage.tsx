@@ -1,24 +1,15 @@
-import { makeStyles } from "@material-ui/core";
-import React from "react";
-import CourseCard from "../components/CourseCard";
-import { useAppSelector } from "../hooks";
-
-const useStyles = makeStyles((theme) => ({
-  page: {
-    display: "flex",
-    flex: 1,
-  },
-}));
+import { Box } from '@mui/material';
+import CourseCard from '../components/CourseCard';
+import { useAppSelector } from '../hooks';
 
 const HomePage = () => {
-  const classes = useStyles();
   const courses = useAppSelector((state) => state.courses);
   return (
-    <div className={classes.page}>
+    <Box sx={{ flex: '1' }}>
       {courses.map((course) => (
         <CourseCard key={course.courseId} {...course} />
       ))}
-    </div>
+    </Box>
   );
 };
 
