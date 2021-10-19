@@ -1,65 +1,84 @@
 import {
-  Checkbox,
-  FormControlLabel,
+  FormControl,
   Grid,
-  TextField,
-  Typography,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
 } from '@mui/material';
-import React from 'react';
 import { Dispatcher } from '../hooks';
+import { CourseFrequency, CourseRun } from '../model/CourseRegisteration';
 
-interface MyCourseDateFormProps {
-  date: string;
-  repeatable: boolean;
-  setDate: Dispatcher<string>;
-  setRepeatable: Dispatcher<boolean>;
+interface CourseDateFormProps {
+  courses: CourseRun[];
+  frequency: CourseFrequency;
+  setCourses: Dispatcher<CourseRun[]>;
+  setFrequency: Dispatcher<CourseFrequency>;
 }
 
-const MyCourseDateForm = ({
-  date,
-  repeatable,
-  setDate,
-  setRepeatable,
-}: MyCourseDateFormProps) => {
-  const onDateChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setDate(e.target.value);
-  const onRepeatableChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setRepeatable(e.target.checked);
+const FrequencySelector = ({
+  frequency,
+  setFrequency,
+}: Pick<CourseDateFormProps, 'frequency' | 'setFrequency'>) => {
+  const handleFrequencyChange = (event: SelectChangeEvent) => {
+    setFrequency(event.target.value as CourseFrequency);
+  };
+  return (
+    <FormControl fullWidth>
+      <InputLabel id="demo-simple-select-label">Frenquency</InputLabel>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={frequency}
+        label="Frequency"
+        onChange={handleFrequencyChange}
+      >
+        {Object.keys(CourseFrequency).map((key) => {
+          return <MenuItem value={key}>{key}</MenuItem>;
+        })}
+      </Select>
+    </FormControl>
+  );
+};
+
+const CoursesEditor = ({
+  courses,
+  setCourses,
+}: Pick<CourseDateFormProps, 'courses' | 'setCourses'>) => {
+  const updateCourse = (index: number) => (course: CourseRun) => {
+    const newCourses = [...courses];
+    newCourses[index] = course;
+    setCourses(newCourses);
+  };
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
-        My course details
-      </Typography>
+      <Grid container spacing={3}></Grid>
+    </>
+  );
+};
+
+const CourseDateForm = ({
+  courses,
+  frequency,
+  setCourses,
+  setFrequency,
+}: CourseDateFormProps) => {
+  return (
+    <>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="date"
-            name="date"
-            label="Date"
-            fullWidth
-            autoComplete="My course date"
-            value={date}
-            onChange={onDateChange}
+          <FrequencySelector
+            frequency={frequency}
+            setFrequency={setFrequency}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <FormControlLabel
-            label="Repeatable"
-            value="repeatable"
-            control={
-              <Checkbox
-                checked={repeatable}
-                onChange={onRepeatableChange}
-                name="repeatable"
-              />
-            }
-          />
+          <CoursesEditor courses={courses} setCourses={setCourses} />
         </Grid>
       </Grid>
     </>
   );
 };
 
-export default MyCourseDateForm;
+export default CourseDateForm;

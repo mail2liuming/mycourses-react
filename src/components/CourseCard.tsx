@@ -1,12 +1,12 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import { CourseRegisteration } from '../model/CourseRegisteration';
 
-const CourseCard = ({ name, date }: CourseRegisteration) => {
+const CourseCard = ({ courseName, kidName }: CourseRegisteration) => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h6">{name}</Typography>
-        <Typography variant="h6">{date}</Typography>
+        <Typography variant="h6">{courseName}</Typography>
+        <Typography variant="h6">{kidName}</Typography>
       </CardContent>
     </Card>
   );

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CourseRegisteration } from "../model/CourseRegisteration";
+import { CourseFrequency, CourseRegisteration, CourseRun } from "../model/CourseRegisteration";
 import { registerCourse } from "./CoursesThunk";
 
 const initialState = [] as CourseRegisteration[];
@@ -10,23 +10,22 @@ const coursesReducer = createSlice({
     reducers: {
         createCourse: {
             reducer: (state, action: PayloadAction<CourseRegisteration>) => { state.push(action.payload) },
-            prepare: (userId: string, courseId: string, name: string, date: string, repeatable: boolean, cost: number) => ({
+            prepare: (userEmail: string, courseName: string, kidName: string, frequency: CourseFrequency, courses: CourseRun[]) => ({
                 payload: {
-                    userId,
-                    courseId,
-                    name,
-                    date,
-                    repeatable,
-                    cost
+                    userEmail,
+                    courseName,
+                    kidName,
+                    frequency,
+                    courses
                 }
             })
         },
         deleteCource(state, action: PayloadAction<string>) {
-            const index = state.findIndex((course) => course.userId === action.payload);
+            const index = state.findIndex((course) => course.userEmail === action.payload);
             state.splice(index, 1);
         },
         updateCource(state, action: PayloadAction<CourseRegisteration>) {
-            const index = state.findIndex((course) => course.userId === action.payload.userId);
+            const index = state.findIndex((course) => course.userEmail === action.payload.userEmail);
             state[index] = action.payload;
         }
     },

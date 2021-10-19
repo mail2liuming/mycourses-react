@@ -5,7 +5,11 @@ import MyCourseConfirm from '../components/MyCourseConfirm';
 import MyCourseDateForm from '../components/MyCourseDateForm';
 import MyCourseForm from '../components/MyCourseForm';
 import { useAppDispatch } from '../hooks';
-import { CourseRegisteration } from '../model/CourseRegisteration';
+import {
+  CourseFrequency,
+  CourseRegisteration,
+  CourseRun,
+} from '../model/CourseRegisteration';
 import { createCourse } from '../redux/CoursesReducer';
 import { registerCourse } from '../redux/CoursesThunk';
 
@@ -18,12 +22,13 @@ const steps = ['Course info', 'Attending Date', 'Review your course'];
 
 const CourseEditor = ({ create, course }: CourseEditorProps) => {
   const [step, setstep] = useState(0);
-  const [name, setname] = useState(create ? '' : course!.name);
-  const [date, setdate] = useState(create ? '' : course!.date);
-  const [cost, setcost] = useState(create ? 0 : course!.cost);
-  const [repeatable, setrepeatable] = useState(
-    create ? false : course!.repeatable
+
+  const [name, setname] = useState(create ? '' : course!.courseName);
+  const [kid, setkid] = useState(create ? '' : course!.kidName);
+  const [frequency, setFrequency] = useState(
+    create ? CourseFrequency.WEEKLY : course!.frequency
   );
+  const [courseRun, setCourseRun] = useState(create ? [] : course!.courses);
 
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -46,14 +51,7 @@ const CourseEditor = ({ create, course }: CourseEditorProps) => {
       //   })
       // );
       dispatch(
-        createCourse(
-          'this is react user',
-          'this is react course',
-          name,
-          date,
-          true,
-          cost
-        )
+        createCourse('this is react user', name, kid, frequency, courseRun)
       );
       history.push('/');
     }
@@ -65,28 +63,29 @@ const CourseEditor = ({ create, course }: CourseEditorProps) => {
         return (
           <MyCourseForm
             courseName={name}
-            cost={cost}
+            kidName={kid}
             setName={setname}
-            setCost={setcost}
+            setKid={setkid}
           />
         );
       case 1:
         return (
           <MyCourseDateForm
-            date={date}
-            repeatable={repeatable}
-            setDate={setdate}
-            setRepeatable={setrepeatable}
+            frequency={frequency}
+            courses={courseRun}
+            setFrequency={setFrequency}
+            setCourses={setCourseRun}
           />
         );
       case 2:
         return (
-          <MyCourseConfirm
-            courseName={name}
-            cost={cost}
-            date={date}
-            repeatable={repeatable}
-          />
+          // <MyCourseConfirm
+          //   courseName={name}
+          //   cost={cost}
+          //   date={date}
+          //   repeatable={repeatable}
+          // />
+          <></>
         );
       default:
         throw new Error('Unknow');

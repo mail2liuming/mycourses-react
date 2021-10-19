@@ -4,22 +4,22 @@ import { Dispatcher } from '../hooks';
 
 interface MyCourseFormProps {
   courseName: string;
-  cost: number;
+  kidName: string;
   setName: Dispatcher<string>;
-  setCost: Dispatcher<number>;
+  setKid: Dispatcher<string>;
 }
 
 const MyCourseForm = ({
   courseName,
-  cost,
+  kidName,
   setName,
-  setCost,
+  setKid,
 }: MyCourseFormProps) => {
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
-  const onCostChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCost(event.target.valueAsNumber);
+  const onKidChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKid(event.target.value);
   };
 
   return (
@@ -43,13 +43,13 @@ const MyCourseForm = ({
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="cost"
-            name="cost"
-            label="Cost"
+            id="kid"
+            name="Kid Name"
+            label="Kid Name"
             fullWidth
-            autoComplete="Cost of my course"
-            value={cost}
-            onChange={onCostChange}
+            autoComplete="Your kid's Name"
+            value={kidName}
+            onChange={onKidChange}
           />
         </Grid>
       </Grid>
