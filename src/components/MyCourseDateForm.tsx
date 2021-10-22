@@ -1,13 +1,17 @@
 import {
+  Fab,
   FormControl,
   Grid,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
+  Typography,
 } from '@mui/material';
 import { Dispatcher } from '../hooks';
 import { CourseFrequency, CourseRun } from '../model/CourseRegisteration';
+import AddIcon from '@mui/icons-material/Add';
+import MyCourseDateFormRow from './MyCourseDateFormRow';
 
 interface CourseDateFormProps {
   courses: CourseRun[];
@@ -51,9 +55,40 @@ const CoursesEditor = ({
     setCourses(newCourses);
   };
 
+  const createNewCourse = () => {
+    const newCourse =
+      courses.length > 0
+        ? { ...courses[courses.length - 1] }
+        : ({ address: '', cost: 0, date: '' } as CourseRun);
+    setCourses([...courses, newCourse]);
+  };
+
   return (
     <>
-      <Grid container spacing={3}></Grid>
+      <Grid
+        container
+        spacing={3}
+        direction="row-reverse"
+        justifyContent="space-around"
+        alignItems="flex-start"
+      >
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h6">Add one more course.</Typography>
+          <Fab color="primary" aria-label="add" onClick={createNewCourse}>
+            <AddIcon />
+          </Fab>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          {courses.map((cur, index) => {
+            return (
+              <MyCourseDateFormRow
+                course={cur}
+                updateCourse={updateCourse(index)}
+              />
+            );
+          })}
+        </Grid>
+      </Grid>
     </>
   );
 };

@@ -8,10 +8,13 @@ import { CourseRun } from '../model/CourseRegisteration';
 
 interface MyCourseDateFormProps {
   course: CourseRun;
-  setCourse: Dispatcher<CourseRun>;
+  updateCourse: (course: CourseRun) => void;
 }
 
-const MyCourseDateFormRow = ({ course, setCourse }: MyCourseDateFormProps) => {
+const MyCourseDateFormRow = ({
+  course,
+  updateCourse,
+}: MyCourseDateFormProps) => {
   const onCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
   const onAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
 
